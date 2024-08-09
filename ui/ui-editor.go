@@ -627,17 +627,19 @@ func (c *CUI) makeSidebarButton(key string, host *editor.Host) (b ctk.Button) {
 	return
 }
 
+func (c *CUI) finishFocusEditor() {
+	c.updateSidebarActionButtons()
+	c.Window.Thaw()
+	c.Window.Resize()
+	c.Window.ReApplyStyles()
+	c.Display.RequestDraw()
+	c.Display.RequestShow()
+	c.reloadEditor()
+}
+
 func (c *CUI) focusEditor(host *editor.Host) {
 	c.Window.Freeze()
-	defer func() {
-		c.updateSidebarActionButtons()
-		c.Window.Thaw()
-		c.Window.Resize()
-		c.Window.ReApplyStyles()
-		c.Display.RequestDraw()
-		c.Display.RequestShow()
-		c.reloadEditor()
-	}()
+	defer c.finishFocusEditor()
 
 	if host == nil {
 		c.Window.LogDebug("clearing editor focus")
@@ -647,6 +649,10 @@ func (c *CUI) focusEditor(host *editor.Host) {
 		return
 	}
 
+	c.focusEditorStart(host)
+}
+
+func (c *CUI) focusEditorStart(host *editor.Host) {
 	c.Window.LogDebug("focusing editor on: %v", host.String())
 	c.SelectedHost = host
 	c.HostSelectedFrame.Show()
@@ -659,6 +665,23 @@ func (c *CUI) focusEditor(host *editor.Host) {
 		c.AddressEntry.SetText(host.Address())
 	}
 
+	c.focusEditorSetupCommentsEntry(host)
+	c.focusEditorSetupDomainsEntry(host)
+	c.focusEditorSetupActionButtons(host)
+	c.focusEditorSetupAddressButton(host)
+
+	if host.IsOnlyComment() {
+		c.CommentsEntry.SetSizeRequest(-1, -1)
+		c.HostEditVBox.Hide()
+		c.ActivateButton.Hide()
+	} else {
+		c.CommentsEntry.SetSizeRequest(-1, 3)
+		c.HostEditVBox.Show()
+		c.ActivateButton.Show()
+	}
+}
+
+func (c *CUI) focusEditorSetupCommentsEntry(host *editor.Host) {
 	_ = c.CommentsEntry.Disconnect(ctk.SignalChangedText, "comments-changed-handler")
 	c.CommentsEntry.Connect(ctk.SignalChangedText, "comments-changed-handler", func(data []interface{}, argv ...interface{}) cenums.EventFlag {
 		h, _ := data[0].(*editor.Host)
@@ -667,7 +690,9 @@ func (c *CUI) focusEditor(host *editor.Host) {
 		c.reloadEditor()
 		return cenums.EVENT_STOP
 	}, host)
+}
 
+func (c *CUI) focusEditorSetupDomainsEntry(host *editor.Host) {
 	_ = c.DomainsEntry.Disconnect(ctk.SignalChangedText, "domains-changed-handler")
 	// c.DomainsEntry.SetText(strings.Join(host.Domains(), " "))
 	alloc := c.DomainsEntry.GetAllocation()
@@ -696,7 +721,9 @@ func (c *CUI) focusEditor(host *editor.Host) {
 		c.reloadEditor()
 		return cenums.EVENT_STOP
 	}, host)
+}
 
+func (c *CUI) focusEditorSetupActionButtons(host *editor.Host) {
 	handle := "activate-button-handler"
 	_ = c.ActivateButton.Disconnect(ctk.SignalActivate, handle)
 	if host.Importance() != editor.HostNotImportant {
@@ -784,7 +811,9 @@ func (c *CUI) focusEditor(host *editor.Host) {
 
 		}
 	}
+}
 
+func (c *CUI) focusEditorSetupAddressButton(host *editor.Host) {
 	_ = c.AddressButton.Disconnect(ctk.SignalActivate, "address-activate-handler")
 	c.AddressButton.Connect(
 		ctk.SignalActivate,
@@ -836,7 +865,9 @@ func (c *CUI) focusEditor(host *editor.Host) {
 		c.reloadEditor()
 		return cenums.EVENT_PASS
 	}, host)
+}
 
+func (c *CUI) focusEditorSetupEntries(host *editor.Host) {
 	allEntries := append(
 		append(
 			c.SidebarLocalsList.GetChildren(),
@@ -880,16 +911,6 @@ func (c *CUI) focusEditor(host *editor.Host) {
 				}
 			}
 		}
-	}
-
-	if host.IsOnlyComment() {
-		c.CommentsEntry.SetSizeRequest(-1, -1)
-		c.HostEditVBox.Hide()
-		c.ActivateButton.Hide()
-	} else {
-		c.CommentsEntry.SetSizeRequest(-1, 3)
-		c.HostEditVBox.Show()
-		c.ActivateButton.Show()
 	}
 }
 
