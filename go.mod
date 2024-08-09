@@ -1,6 +1,6 @@
 module github.com/go-coreutils/etc-hosts-editor
 
-go 1.21.5
+go 1.22.4
 
 require (
 	github.com/go-corelibs/cli v0.2.0
