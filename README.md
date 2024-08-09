@@ -19,15 +19,15 @@ USAGE:
    eheditor [options] [/etc/hosts]
 
 VERSION:
-   v0.1.1 (trunk)
+   v0.7.1 (trunk)
 
 DESCRIPTION:
    command line utility for managing the OS /etc/hosts file
 
 GLOBAL OPTIONS:
-   --help, -h, --usage  display command-line usage information (default: false)
-   --read-only, -r      do not write any changes to the etc hosts file (default: false)
-   --version, -v        display the version (default: false)
+   --read-only, -r      do not write any changes to the etc hosts file
+   --help, -h, --usage  display command-line usage information
+   --version, -v        display the version
 ```
 
 
