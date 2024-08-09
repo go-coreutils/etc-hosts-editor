@@ -23,7 +23,7 @@ USAGE:
    eheditor [options] [/etc/hosts]
 
 VERSION:
-   v0.7.1 (trunk)
+   v0.8.0 (trunk)
 
 DESCRIPTION:
    command line utility for managing the OS /etc/hosts file

@@ -20,7 +20,7 @@
 -include .env
 
 BIN_NAME := eheditor
-UNTAGGED_VERSION := v0.7.1
+UNTAGGED_VERSION := v0.8.0
 UNTAGGED_COMMIT := trunk
 
 SHELL := /bin/bash
