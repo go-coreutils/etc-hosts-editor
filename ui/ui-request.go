@@ -22,7 +22,7 @@ import (
 	editor "github.com/go-coreutils/etc-hosts-editor"
 )
 
-func (c *CUI) requestReload() {
+func (c *cUI) requestReload() {
 	log.DebugF("reloading from: %v", c.SourceFile)
 	var err error
 	if c.HostFile, err = editor.ParseFile(c.SourceFile); err != nil {
@@ -33,12 +33,12 @@ func (c *CUI) requestReload() {
 	c.requestReloadContents()
 }
 
-func (c *CUI) requestReloadContents() {
+func (c *cUI) requestReloadContents() {
 	c.reloadEditor()
 	c.focusEditor(nil)
 }
 
-func (c *CUI) requestSave() {
+func (c *cUI) requestSave() {
 	log.DebugF("saving to: %v", c.SourceFile)
 	if c.HostFile != nil {
 		if err := c.HostFile.Save(); err != nil {
@@ -49,6 +49,6 @@ func (c *CUI) requestSave() {
 	c.QuitButton.GrabFocus()
 }
 
-func (c *CUI) requestQuit() {
+func (c *cUI) requestQuit() {
 	c.Display.RequestQuit()
 }

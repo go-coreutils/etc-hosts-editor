@@ -38,7 +38,7 @@ const (
 	gSidebarInnerWidth = 20
 )
 
-func (c *CUI) switchToEditor() {
+func (c *cUI) switchToEditor() {
 	c.Window.Freeze()
 	c.ContentsHBox.Freeze()
 	for _, child := range c.ContentsHBox.GetChildren() {
@@ -53,7 +53,7 @@ func (c *CUI) switchToEditor() {
 	c.focusEditor(c.SelectedHost)
 }
 
-func (c *CUI) makeEditor() ctk.Widget {
+func (c *cUI) makeEditor() ctk.Widget {
 	c.EditingHBox = ctk.NewHBox(false, 1)
 	c.EditingHBox.SetName("editing")
 	c.EditingHBox.Show()
@@ -450,7 +450,7 @@ func (c *CUI) makeEditor() ctk.Widget {
 	return c.EditingHBox
 }
 
-func (c *CUI) reloadEditor() {
+func (c *cUI) reloadEditor() {
 	c.Window.Freeze()
 	defer func() {
 		c.Window.Thaw()
@@ -513,7 +513,7 @@ func (c *CUI) reloadEditor() {
 
 }
 
-func (c *CUI) updateEditor() {
+func (c *cUI) updateEditor() {
 	switch c.SidebarMode {
 	case ListByDomain, ListByAddress:
 		c.updateEditorByAddressOrDomain()
@@ -522,7 +522,7 @@ func (c *CUI) updateEditor() {
 	}
 }
 
-func (c *CUI) updateEditorByAddressOrDomain() {
+func (c *cUI) updateEditorByAddressOrDomain() {
 	var choices map[string]*editor.Host
 	if c.SidebarMode == ListByAddress {
 		choices = c.EditorAddressLookup
@@ -554,7 +554,7 @@ func (c *CUI) updateEditorByAddressOrDomain() {
 	}
 }
 
-func (c *CUI) updateEditorByEntry() {
+func (c *cUI) updateEditorByEntry() {
 	hosts := c.HostFile.Hosts()
 	c.SidebarEntryList.SetSizeRequest(-1, len(hosts))
 	var commentsCount int
@@ -571,7 +571,7 @@ func (c *CUI) updateEditorByEntry() {
 	}
 }
 
-func (c *CUI) makeSidebarButton(key string, host *editor.Host) (b ctk.Button) {
+func (c *cUI) makeSidebarButton(key string, host *editor.Host) (b ctk.Button) {
 	label := ctk.NewLabel(key)
 	label.Show()
 	label.SetJustify(cenums.JUSTIFY_LEFT)
@@ -627,7 +627,7 @@ func (c *CUI) makeSidebarButton(key string, host *editor.Host) (b ctk.Button) {
 	return
 }
 
-func (c *CUI) finishFocusEditor() {
+func (c *cUI) finishFocusEditor() {
 	c.updateSidebarActionButtons()
 	c.Window.Thaw()
 	c.Window.Resize()
@@ -637,7 +637,7 @@ func (c *CUI) finishFocusEditor() {
 	c.reloadEditor()
 }
 
-func (c *CUI) focusEditor(host *editor.Host) {
+func (c *cUI) focusEditor(host *editor.Host) {
 	c.Window.Freeze()
 	defer c.finishFocusEditor()
 
@@ -652,7 +652,7 @@ func (c *CUI) focusEditor(host *editor.Host) {
 	c.focusEditorStart(host)
 }
 
-func (c *CUI) focusEditorStart(host *editor.Host) {
+func (c *cUI) focusEditorStart(host *editor.Host) {
 	c.Window.LogDebug("focusing editor on: %v", host.String())
 	c.SelectedHost = host
 	c.HostSelectedFrame.Show()
@@ -681,7 +681,7 @@ func (c *CUI) focusEditorStart(host *editor.Host) {
 	}
 }
 
-func (c *CUI) focusEditorSetupCommentsEntry(host *editor.Host) {
+func (c *cUI) focusEditorSetupCommentsEntry(host *editor.Host) {
 	_ = c.CommentsEntry.Disconnect(ctk.SignalChangedText, "comments-changed-handler")
 	c.CommentsEntry.Connect(ctk.SignalChangedText, "comments-changed-handler", func(data []interface{}, argv ...interface{}) cenums.EventFlag {
 		h, _ := data[0].(*editor.Host)
@@ -692,7 +692,7 @@ func (c *CUI) focusEditorSetupCommentsEntry(host *editor.Host) {
 	}, host)
 }
 
-func (c *CUI) focusEditorSetupDomainsEntry(host *editor.Host) {
+func (c *cUI) focusEditorSetupDomainsEntry(host *editor.Host) {
 	_ = c.DomainsEntry.Disconnect(ctk.SignalChangedText, "domains-changed-handler")
 	// c.DomainsEntry.SetText(strings.Join(host.Domains(), " "))
 	alloc := c.DomainsEntry.GetAllocation()
@@ -723,7 +723,7 @@ func (c *CUI) focusEditorSetupDomainsEntry(host *editor.Host) {
 	}, host)
 }
 
-func (c *CUI) focusEditorSetupActionButtons(host *editor.Host) {
+func (c *cUI) focusEditorSetupActionButtons(host *editor.Host) {
 	handle := "activate-button-handler"
 	_ = c.ActivateButton.Disconnect(ctk.SignalActivate, handle)
 	if host.Importance() != editor.HostNotImportant {
@@ -813,7 +813,7 @@ func (c *CUI) focusEditorSetupActionButtons(host *editor.Host) {
 	}
 }
 
-func (c *CUI) focusEditorSetupAddressButton(host *editor.Host) {
+func (c *cUI) focusEditorSetupAddressButton(host *editor.Host) {
 	_ = c.AddressButton.Disconnect(ctk.SignalActivate, "address-activate-handler")
 	c.AddressButton.Connect(
 		ctk.SignalActivate,
@@ -867,7 +867,7 @@ func (c *CUI) focusEditorSetupAddressButton(host *editor.Host) {
 	}, host)
 }
 
-func (c *CUI) focusEditorSetupEntries(host *editor.Host) {
+func (c *cUI) focusEditorSetupEntries(host *editor.Host) {
 	allEntries := append(
 		append(
 			c.SidebarLocalsList.GetChildren(),

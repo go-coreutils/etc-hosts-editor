@@ -25,7 +25,7 @@ import (
 
 const gSidebarAddRowHandler = "editor-add-row-handler"
 
-func (c *CUI) activateSidebarAddRowHandler(data []interface{}, argv ...interface{}) cenums.EventFlag {
+func (c *cUI) activateSidebarAddRowHandler(data []interface{}, argv ...interface{}) cenums.EventFlag {
 	idx := c.HostFile.Len()
 
 	var entries []interface{}
@@ -67,7 +67,7 @@ func (c *CUI) activateSidebarAddRowHandler(data []interface{}, argv ...interface
 
 const gSidebarMoveRowUpHandler = "editor-move-row-up-handler"
 
-func (c *CUI) activateSidebarMoveRowUpHandler(data []interface{}, argv ...interface{}) cenums.EventFlag {
+func (c *cUI) activateSidebarMoveRowUpHandler(data []interface{}, argv ...interface{}) cenums.EventFlag {
 	if c.SelectedHost == nil {
 		return cenums.EVENT_STOP
 	}
@@ -84,7 +84,7 @@ func (c *CUI) activateSidebarMoveRowUpHandler(data []interface{}, argv ...interf
 
 const gSidebarMoveRowDownHandler = "editor-move-row-down-handler"
 
-func (c *CUI) activateSidebarMoveRowDownHandler(data []interface{}, argv ...interface{}) cenums.EventFlag {
+func (c *cUI) activateSidebarMoveRowDownHandler(data []interface{}, argv ...interface{}) cenums.EventFlag {
 	if c.SelectedHost == nil {
 		return cenums.EVENT_STOP
 	}
@@ -100,7 +100,7 @@ func (c *CUI) activateSidebarMoveRowDownHandler(data []interface{}, argv ...inte
 	return cenums.EVENT_STOP
 }
 
-func (c *CUI) updateSidebarActionButtons() {
+func (c *cUI) updateSidebarActionButtons() {
 	if c.SidebarMode != ListByEntry {
 		c.SidebarMoveEntryUpButton.Hide()
 		c.SidebarMoveEntryDownButton.Hide()

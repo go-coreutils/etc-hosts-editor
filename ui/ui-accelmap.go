@@ -19,7 +19,7 @@ import (
 	"github.com/go-curses/ctk"
 )
 
-func (c *CUI) makeAccelmap() (ag ctk.AccelGroup) {
+func (c *cUI) makeAccelmap() (ag ctk.AccelGroup) {
 	ag = ctk.NewAccelGroup()
 	ag.ConnectByPath(
 		"<eheditor-window>/File/Quit",
@@ -51,7 +51,7 @@ func (c *CUI) makeAccelmap() (ag ctk.AccelGroup) {
 	return
 }
 
-func (c *CUI) makeActionButtonBox() ctk.HButtonBox {
+func (c *cUI) makeActionButtonBox() ctk.HButtonBox {
 	c.ActionHBox = ctk.NewHButtonBox(false, 1)
 	c.ActionHBox.Show()
 	c.ActionHBox.SetSizeRequest(-1, 1)

@@ -26,7 +26,7 @@ import (
 	editor "github.com/go-coreutils/etc-hosts-editor"
 )
 
-func (c *CUI) startup(_ []interface{}, argv ...interface{}) enums.EventFlag {
+func (c *cUI) startup(_ []interface{}, argv ...interface{}) enums.EventFlag {
 	var err error
 	var ok bool
 	if c.App, c.Display, _, _, _, ok = ctk.ArgvApplicationSignalStartup(argv...); ok {
@@ -105,7 +105,7 @@ func (c *CUI) startup(_ []interface{}, argv ...interface{}) enums.EventFlag {
 	return enums.EVENT_STOP
 }
 
-func (c *CUI) shutdown(_ []interface{}, _ ...interface{}) enums.EventFlag {
+func (c *cUI) shutdown(_ []interface{}, _ ...interface{}) enums.EventFlag {
 	if c.LastError != nil {
 		fmt.Printf("%v\n", c.LastError)
 		log.InfoF("exiting (with error)")

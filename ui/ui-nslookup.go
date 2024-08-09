@@ -25,7 +25,7 @@ import (
 	editor "github.com/go-coreutils/etc-hosts-editor"
 )
 
-func (c *CUI) newNsLookupDialog(host *editor.Host) (err error) {
+func (c *cUI) newNsLookupDialog(host *editor.Host) (err error) {
 	c.EditingHBox.Freeze()
 
 	var found []net.IP

@@ -38,7 +38,7 @@ const (
 	ListByEntry
 )
 
-type CUI struct {
+type cUI struct {
 	App ctk.Application
 
 	HostFile     *editor.Hostfile
@@ -92,8 +92,8 @@ type CUI struct {
 	sync.RWMutex
 }
 
-func NewUI(name string, usage string, description string, version string, tag string, title string, ttyPath string) (e *CUI) {
-	e = &CUI{
+func NewUI(name string, usage string, description string, version string, tag string, title string, ttyPath string) (e *cUI) {
+	e = &cUI{
 		App: ctk.NewApplication(name, usage, description, version, tag, title, ttyPath),
 	}
 	e.App.Connect(cdk.SignalStartup, "eheditor-startup-handler", e.startup)
@@ -102,7 +102,7 @@ func NewUI(name string, usage string, description string, version string, tag st
 	return
 }
 
-func (c *CUI) Run(argv []string) (err error) {
+func (c *cUI) Run(argv []string) (err error) {
 	err = c.App.Run(argv)
 	return
 }
