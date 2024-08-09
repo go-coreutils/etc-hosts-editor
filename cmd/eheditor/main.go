@@ -22,7 +22,7 @@ import (
 	clcli "github.com/go-corelibs/cli"
 	"github.com/go-curses/cdk/log"
 
-	"github.com/go-curses/coreutils-etc-hosts-editor/ui"
+	"github.com/go-coreutils/etc-hosts-editor/ui"
 )
 
 var (

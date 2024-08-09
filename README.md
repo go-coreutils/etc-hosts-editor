@@ -5,7 +5,7 @@ Utility for managing the OS /etc/hosts file.
 ## INSTALLATION
 
 ``` shell
-> go install github.com/go-curses/coreutils-etc-hosts-editor/cmd/eheditor@latest
+> go install github.com/go-coreutils/etc-hosts-editor/cmd/eheditor@latest
 ```
 
 ## DOCUMENTATION

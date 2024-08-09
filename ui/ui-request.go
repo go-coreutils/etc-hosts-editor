@@ -19,7 +19,7 @@ import (
 
 	"github.com/go-curses/cdk/log"
 
-	editor "github.com/go-curses/coreutils-etc-hosts-editor"
+	editor "github.com/go-coreutils/etc-hosts-editor"
 )
 
 func (c *CUI) requestReload() {

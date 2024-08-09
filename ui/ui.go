@@ -21,7 +21,7 @@ import (
 	"github.com/go-curses/cdk/lib/sync"
 	"github.com/go-curses/ctk"
 
-	editor "github.com/go-curses/coreutils-etc-hosts-editor"
+	editor "github.com/go-coreutils/etc-hosts-editor"
 )
 
 //go:embed eheditor.accelmap

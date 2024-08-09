@@ -30,7 +30,7 @@ import (
 	"github.com/go-curses/ctk"
 	"github.com/go-curses/ctk/lib/enums"
 
-	editor "github.com/go-curses/coreutils-etc-hosts-editor"
+	editor "github.com/go-coreutils/etc-hosts-editor"
 )
 
 const (
